@@ -15,10 +15,9 @@ public class Agendamento {
     @Id
     private String codigo;
     private String especialidade;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    //@JsonFormat(pattern="dd/MM/yyyy")
     private String data;
     private String unidade;
-    @DBRef
     private Paciente paciente;
 
     public Agendamento(String especialidade, String data, String unidade, Paciente paciente) {

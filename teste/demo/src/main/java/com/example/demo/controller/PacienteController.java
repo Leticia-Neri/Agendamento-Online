@@ -20,19 +20,10 @@ public class PacienteController {
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @GetMapping("/teste")
-    public String algo() {
-        return"teste";
-    }
-    //get ok
-    // delete nocontent
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/salvarPaciente")
     public Paciente novoPaciente(@RequestBody Paciente paciente) {
         pacienteRepository.save(paciente);
         return paciente;
     }
-
-
 }
