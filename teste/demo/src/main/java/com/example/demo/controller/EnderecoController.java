@@ -23,8 +23,10 @@ public class EnderecoController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deletar(@PathVariable String id){
+    public ResponseEntity<Void> deletar(@PathVariable String id){
         enderecoService.deletar(id);
+        return ResponseEntity.noContent().build();
+        //retorna 204, quando uma operação não retorna nada
     }
 
     @PutMapping(path = "/{id}")
