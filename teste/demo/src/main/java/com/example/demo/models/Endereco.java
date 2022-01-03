@@ -1,7 +1,13 @@
 package com.example.demo.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Endereco {
 
+    @Id
+    private String codigo;
     private String estado;
     private String cidade;
     private String bairro;
@@ -20,6 +26,14 @@ public class Endereco {
         this.numero = numero;
         this.cep = cep;
         this.complemento = complemento;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getEstado() {
