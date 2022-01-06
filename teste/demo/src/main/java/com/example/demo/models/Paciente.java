@@ -2,24 +2,36 @@ package com.example.demo.models;
 
 import java.util.Date;
 
+import com.example.demo.dto.PacienteDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotBlank;
+
 @Document
 public class Paciente {
 
     @Id
     private String codigo;
+    @Schema(description = "Nome do paciente", example = "Laura")
+    @NotBlank
     private String nome;
+    @Schema(description = "Sobrenome do paciente", example = "Ramos")
     private String sobrenome;
+    @Schema(description = "Sexo do paciente", example = "Feminino")
     private String sexo;
+    @Schema(description = "Endereço do paciente")
     private Endereco endereco;
+    @Schema(description = "Cpf do paciente", example = "12345678998")
     private String cpf;
     //@JsonFormat(pattern = "dd/MM/yyyy")
+    @Schema(description = "Data de nascimento do paciente", example = "03/09/1980")
     private String dataNasc;
+    @Schema(description = "Tefone do paciente", example = "12345678")
     private String telefone;
 
     public Paciente(String nome, String sobrenome, String sexo, Endereco endereco, String cpf, String dataNasc,
@@ -33,6 +45,24 @@ public class Paciente {
         this.dataNasc = dataNasc;
         this.telefone = telefone;
     }
+
+    //acrescentei para iniciar o dto
+    public Paciente() {
+    }
+
+    public static Paciente convert(PacienteDTO pacienteDTO){
+        Paciente paciente = new Paciente();
+        paciente.setNome(pacienteDTO.getNome());
+        paciente.setSobrenome(pacienteDTO.getSobrenome());
+        paciente.setSexo(pacienteDTO.getSexo());
+        paciente.setEndereco(pacienteDTO.getEndereco());
+        paciente.setCpf(pacienteDTO.getCpf());
+        paciente.setDataNasc(pacienteDTO.getDataNasc());
+        paciente.setTelefone(pacienteDTO.getTelefone());
+        return paciente;
+    }
+    //fim
+
     public String getCodigo() {
         return codigo;
     }

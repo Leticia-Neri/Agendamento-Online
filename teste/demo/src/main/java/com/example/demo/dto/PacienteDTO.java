@@ -1,0 +1,97 @@
+package com.example.demo.dto;
+
+import com.example.demo.models.Endereco;
+import com.example.demo.models.Paciente;
+
+public class PacienteDTO {
+
+    private String nome;
+    private String sobrenome;
+    private String sexo;
+    private Endereco endereco;
+    private String cpf;
+    private String dataNasc;
+    private String telefone;
+
+    public PacienteDTO() {
+    }
+
+    public PacienteDTO(String nome, String sobrenome, String sexo, Endereco endereco, String cpf, String dataNasc, String telefone) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.sexo = sexo;
+        this.endereco = endereco;
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+        this.telefone = telefone;
+    }
+
+
+    public static PacienteDTO convert(Paciente paciente){
+        PacienteDTO pacienteDTO = new PacienteDTO();
+        pacienteDTO.setNome(paciente.getNome());
+        pacienteDTO.setSobrenome(paciente.getSobrenome());
+        pacienteDTO.setSexo(paciente.getSexo());
+        pacienteDTO.setEndereco(paciente.getEndereco());
+        pacienteDTO.setCpf(paciente.getCpf());
+        pacienteDTO.setDataNasc(paciente.getDataNasc());
+        pacienteDTO.setTelefone(paciente.getTelefone());
+        return pacienteDTO;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+}

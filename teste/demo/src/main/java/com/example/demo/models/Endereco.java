@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,12 +8,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Endereco {
 
     @Id
+    @Schema(description = "Id do endereço")
     private String codigo;
+    @Schema(description = "Estado do endereço", example = "São Paulo")
     private String estado;
+    @Schema(description = "Cidade do endereço", example = "São Paulo")
     private String cidade;
+    @Schema(description = "Bairro do endereço", example = "Mooca")
     private String bairro;
+    @Schema(description = "Rua do endereço", example = "Rua Jardim")
     private String rua;
+    @Schema(description = "Número do endereço", example = "123")
     private String numero;
+    @Schema(description = "Cep do endereço", example = "12345678")
     private String cep;
     private String complemento;
 

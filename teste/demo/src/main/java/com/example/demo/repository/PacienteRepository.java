@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.models.Agendamento;
 
+import java.util.Optional;
+
 @Repository
 public interface PacienteRepository extends MongoRepository<Paciente, String> {
 
+    Optional<Paciente> findByCpf(String cpf);
 }

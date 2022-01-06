@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import java.util.Date;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,10 +14,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Agendamento {
 
     @Id
+    @Schema(description = "Id do usuario")
     private String codigo;
+    @Schema(description = "Especialidade da consulta", example = "Dermatologista")
     private String especialidade;
     //@JsonFormat(pattern="dd/MM/yyyy")
+    @Schema(description = "Data da consulta", example = "05/10/2023")
     private String data;
+    @Schema(description = "Unidade da consulta", example = "Vila Mariana")
     private String unidade;
     private Paciente paciente;
 
@@ -67,7 +72,4 @@ public class Agendamento {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-
-
-
 }

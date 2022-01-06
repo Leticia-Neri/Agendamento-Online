@@ -15,5 +15,5 @@ public interface AgendamentoService {
 
     Agendamento obterPorId(String id);
 
-    List<Agendamento > obterTodos();
+    List<Agendamento>obterTodos();
 }
