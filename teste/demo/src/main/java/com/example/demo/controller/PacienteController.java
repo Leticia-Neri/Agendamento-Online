@@ -54,7 +54,7 @@ public class PacienteController {
         log.info("Agendamento salvo com sucesso retornando no corpo da requisicao o Agendamento e Status CREATED");
         return pacienteService.salvar(paciente);
     }
-    
+
 
     @DeleteMapping(path = "/{id}")
     @Operation(summary="Deletar um paciente")
