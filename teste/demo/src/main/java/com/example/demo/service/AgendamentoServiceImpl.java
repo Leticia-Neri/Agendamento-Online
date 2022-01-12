@@ -27,32 +27,16 @@ public class AgendamentoServiceImpl implements AgendamentoService{
     @Override
     public void deletar(String id) {
 
-        Optional<Agendamento> agendamento = agendamentoRepository.findById(id);
-        if(agendamento.isEmpty()){
-            throw new ApiRequestException("Agendamento não encontrado");
-        }
-
         agendamentoRepository.deleteById(id);
     }
 
     @Override
     public Agendamento atualizar(Agendamento agendamento) {
-
-        Optional<Agendamento> agendamentoid = agendamentoRepository.findById(agendamento.getCodigo());
-        if(agendamentoid.isEmpty()){
-            throw new RuntimeException("Agendamento não encontrado");
-        }
-
         return agendamentoRepository.save(agendamento);
     }
 
     @Override
     public Agendamento obterPorId(String id) {
-
-        Optional<Agendamento> agendamento = agendamentoRepository.findById(id);
-        if(agendamento.isEmpty()){
-            throw new ApiRequestException("Agendamento não encontrado");
-        }
 
         return agendamentoRepository.findById(id).get();
     }

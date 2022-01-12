@@ -1,3 +1,4 @@
+
 package com.example.demo.exceptionHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,10 @@ public class ApiExceptionHandler  {
     @ExceptionHandler(value = {ApiRequestException.class})
     public ResponseEntity<Object> handleApiRequestException(ApiRequestException e){
 
-        //Create payload containing exception details
-        MensagemException mensagemException = new MensagemException(e.getMessage(), HttpStatus.NOT_FOUND, ZonedDateTime.now(ZoneId.of("Z")));
+        MensagemException mensagemException = new MensagemException(e.getMessage(), HttpStatus.NOT_FOUND);
 
         //return response entity
-        return new ResponseEntity<>(mensagemException, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(mensagemException, HttpStatus.BAD_REQUEST);
     }
 
 

@@ -3,8 +3,11 @@ package com.example.demo.dto;
 import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
 
+import javax.validation.constraints.NotEmpty;
+
 public class PacienteDTO {
 
+    @NotEmpty
     private String nome;
     private String sobrenome;
     private String sexo;
@@ -26,17 +29,14 @@ public class PacienteDTO {
         this.telefone = telefone;
     }
 
-
-    public static PacienteDTO convert(Paciente paciente){
-        PacienteDTO pacienteDTO = new PacienteDTO();
-        pacienteDTO.setNome(paciente.getNome());
-        pacienteDTO.setSobrenome(paciente.getSobrenome());
-        pacienteDTO.setSexo(paciente.getSexo());
-        pacienteDTO.setEndereco(paciente.getEndereco());
-        pacienteDTO.setCpf(paciente.getCpf());
-        pacienteDTO.setDataNasc(paciente.getDataNasc());
-        pacienteDTO.setTelefone(paciente.getTelefone());
-        return pacienteDTO;
+    public PacienteDTO(Paciente paciente){
+        this.nome = paciente.getNome();
+        this.sobrenome = paciente.getSobrenome();
+        this.sexo = paciente.getSexo();
+        this.endereco = paciente.getEndereco();
+        this.cpf = paciente.getCpf();
+        this.dataNasc = paciente.getDataNasc();
+        this.telefone = paciente.getTelefone();
     }
 
     public String getNome() {

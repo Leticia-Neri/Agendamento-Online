@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Document
 public class Paciente {
@@ -18,7 +18,7 @@ public class Paciente {
     @Id
     private String codigo;
     @Schema(description = "Nome do paciente", example = "Laura")
-    @NotBlank
+    @NotEmpty
     private String nome;
     @Schema(description = "Sobrenome do paciente", example = "Ramos")
     private String sobrenome;
@@ -46,22 +46,18 @@ public class Paciente {
         this.telefone = telefone;
     }
 
-    //acrescentei para iniciar o dto
     public Paciente() {
     }
 
-    public static Paciente convert(PacienteDTO pacienteDTO){
-        Paciente paciente = new Paciente();
-        paciente.setNome(pacienteDTO.getNome());
-        paciente.setSobrenome(pacienteDTO.getSobrenome());
-        paciente.setSexo(pacienteDTO.getSexo());
-        paciente.setEndereco(pacienteDTO.getEndereco());
-        paciente.setCpf(pacienteDTO.getCpf());
-        paciente.setDataNasc(pacienteDTO.getDataNasc());
-        paciente.setTelefone(pacienteDTO.getTelefone());
-        return paciente;
+    public Paciente(PacienteDTO pacienteDTO){
+        this.nome = pacienteDTO.getNome();
+        this.sobrenome = pacienteDTO.getSobrenome();
+        this.sexo = pacienteDTO.getSexo();
+        this.endereco = pacienteDTO.getEndereco();
+        this.cpf = pacienteDTO.getCpf();
+        this.dataNasc = pacienteDTO.getDataNasc();
+        this.telefone = pacienteDTO.getTelefone();
     }
-    //fim
 
     public String getCodigo() {
         return codigo;

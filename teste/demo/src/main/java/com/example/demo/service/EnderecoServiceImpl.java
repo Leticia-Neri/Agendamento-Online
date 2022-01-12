@@ -23,30 +23,35 @@ public class EnderecoServiceImpl implements EnderecoService{
 
     @Override
     public void deletar(String id) {
-
+        /*
         Optional<Endereco> endereco = enderecoRepository.findById(id);
+
         if(endereco.isEmpty()){
             throw new ApiRequestException("Endereço não encontrado");
-        }
+        }*/
         enderecoRepository.deleteById(id);
     }
 
     @Override
     public Endereco atualizar(Endereco endereco) {
 
+        /*
         Optional<Endereco> enderecoid = enderecoRepository.findById(endereco.getCodigo());
         if(enderecoid.isEmpty()){
             throw new RuntimeException("Endereço não encontrado");
         }
+        */
         return enderecoRepository.save(endereco);
     }
 
     @Override
     public Endereco obterPorId(String id) {
+        /*
         Optional<Endereco> endereco = enderecoRepository.findById(id);
         if(endereco.isEmpty()){
             throw new ApiRequestException("Endereço não encontrado");
-        }
+        }*/
+
         return enderecoRepository.findById(id).get();
     }
 

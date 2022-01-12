@@ -10,12 +10,12 @@ public class MensagemException {
 
     private String mensagem;
     private HttpStatus httpStatus;
-    private ZonedDateTime zonedDateTime;
 
-    public MensagemException(String mensagem, HttpStatus httpStatus, ZonedDateTime zonedDateTime) {
+
+    public MensagemException(String mensagem, HttpStatus httpStatus) {
         this.mensagem = mensagem;
         this.httpStatus = httpStatus;
-        this.zonedDateTime = zonedDateTime;
+
     }
 
     public String getMensagem() {
@@ -34,13 +34,6 @@ public class MensagemException {
         this.httpStatus = httpStatus;
     }
 
-    public ZonedDateTime getZonedDateTime() {
-        return zonedDateTime;
-    }
-
-    public void setZonedDateTime(ZonedDateTime zonedDateTime) {
-        this.zonedDateTime = zonedDateTime;
-    }
 }
 
 
