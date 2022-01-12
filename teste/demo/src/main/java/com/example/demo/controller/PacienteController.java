@@ -54,13 +54,7 @@ public class PacienteController {
         log.info("Agendamento salvo com sucesso retornando no corpo da requisicao o Agendamento e Status CREATED");
         return pacienteService.salvar(paciente);
     }
-
-    /*
-    @PostMapping("/salvarPaciente")
-    public PacienteDTO salvar(@RequestBody PacienteDTO pacienteDTO){
-        return PacienteDTO.convert(pacienteService.salvar(Paciente.convert(pacienteDTO)));
-    }
-     */
+    
 
     @DeleteMapping(path = "/{id}")
     @Operation(summary="Deletar um paciente")
@@ -108,14 +102,6 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(paciente);
     }
 
-    /*
-    @GetMapping(path = "/{id}")
-    @Operation(summary="Retornar um pacinete pelo codigo")
-    public PacienteDTO obterPorCodigo(@PathVariable String id){
-       Paciente paciente =  pacienteService.obterPorId(id);
-       return PacienteDTO.convert(paciente);
-    }
-     */
 
     @GetMapping
     @Operation(summary="Retornar todos os pacientes")
@@ -131,12 +117,4 @@ public class PacienteController {
         return ResponseEntity.ok().body(pacienteService.obterTodos());
     }
 
-    /*
-    @GetMapping
-    @Operation(summary="Retornar todos os pacinetes")
-    public List<PacienteDTO>obterTodos(){
-        List<Paciente> paciente = pacienteService.obterTodos();
-        return paciente.stream().map(p -> PacienteDTO.convert(p)).collect(Collectors.toList());
-    }
-    */
 }

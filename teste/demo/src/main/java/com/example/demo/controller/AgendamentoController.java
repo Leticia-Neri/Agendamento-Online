@@ -56,9 +56,9 @@ public class AgendamentoController {
     @Operation(summary="Atualiza um agendamento")
     public ResponseEntity<Agendamento> atualizar(@PathVariable String id, @RequestBody Agendamento agendamento){
 
-        boolean enderecoExiste = this.agendamentoRepository.existsById(agendamento.getCodigo());
+        boolean agendamentoExiste = this.agendamentoRepository.existsById(agendamento.getCodigo());
 
-        if(!enderecoExiste){
+        if(!agendamentoExiste){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
