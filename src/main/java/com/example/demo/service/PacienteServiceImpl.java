@@ -51,7 +51,11 @@ public class PacienteServiceImpl implements PacienteService{
 
     @Override
     public PacienteDTO convertePaciente(Paciente paciente) {
+
+
         PacienteDTO pacienteDTO = new PacienteDTO();
+
+        pacienteDTO.setCodigo(paciente.getCodigo());
         pacienteDTO.setNome(paciente.getNome());
         pacienteDTO.setSobrenome(paciente.getSobrenome());
         pacienteDTO.setSexo(paciente.getSexo());
@@ -65,6 +69,7 @@ public class PacienteServiceImpl implements PacienteService{
     @Override
     public Paciente convertPacienteDto(PacienteDTO pacienteDTO) {
         Paciente paciente = new Paciente();
+        paciente.setCodigo(pacienteDTO.getCodigo());
         paciente.setNome(pacienteDTO.getNome());
         paciente.setSobrenome(pacienteDTO.getSobrenome());
         paciente.setSexo(pacienteDTO.getSexo());

@@ -25,6 +25,9 @@ public class Agendamento {
     private String unidade;
     private Paciente paciente;
 
+    public Agendamento() {
+    }
+
     public Agendamento(String especialidade, String data, String unidade, Paciente paciente) {
         super();
         this.especialidade = especialidade;

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.EnderecoDTO;
 import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
 import com.example.demo.repository.EnderecoRepository;
@@ -29,7 +30,9 @@ public class EnderecoController {
     @PostMapping("/salvarEndereco")
     @Operation(summary="Salva um endereço")
     @ResponseStatus(HttpStatus.CREATED)
-    public Endereco salvar(@RequestBody Endereco endereco){
+    public Endereco salvar(@RequestBody EnderecoDTO enderecoDTO){
+
+        Endereco endereco = enderecoService.convertEnderecoDto(enderecoDTO);
 
         log.info("Endereço salvo com sucesso retornando no corpo da requisicao o Endereço e Status CREATED");
         enderecoService.salvar(endereco);
@@ -52,9 +55,10 @@ public class EnderecoController {
     }
 
     @PutMapping(path = "/{id}")
-    @Operation(summary="Atualizar um agendamento")
-    public ResponseEntity<Endereco> atualizar(@PathVariable String id, @RequestBody Endereco endereco){
+    @Operation(summary="Atualizar um endereço")
+    public ResponseEntity<Endereco> atualizar(@PathVariable String id, @RequestBody EnderecoDTO enderecoDTO){
 
+        Endereco endereco = enderecoService.convertEnderecoDto(enderecoDTO);
         boolean enderecoExiste = this.enderecoRepository.existsById(endereco.getCodigo());
 
         if(!enderecoExiste){

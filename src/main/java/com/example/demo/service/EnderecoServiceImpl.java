@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.EnderecoDTO;
+import com.example.demo.dto.PacienteDTO;
 import com.example.demo.exceptionHandler.ApiRequestException;
 import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
@@ -58,5 +60,38 @@ public class EnderecoServiceImpl implements EnderecoService{
     @Override
     public List<Endereco> obterTodos() {
         return enderecoRepository.findAll();
+    }
+
+    @Override
+    public EnderecoDTO convertEndereco(Endereco endereco) {
+
+        EnderecoDTO enderecoDTO = new EnderecoDTO();
+
+        enderecoDTO.setEstado(endereco.getEstado());
+        enderecoDTO.setCidade(endereco.getCidade());
+        enderecoDTO.setBairro(endereco.getBairro());
+        enderecoDTO.setRua(endereco.getRua());
+        enderecoDTO.setNumero(endereco.getNumero());
+        enderecoDTO.setCep(endereco.getCep());
+        enderecoDTO.setComplemento(endereco.getComplemento());
+
+        return enderecoDTO;
+
+    }
+
+    @Override
+    public Endereco convertEnderecoDto(EnderecoDTO enderecoDTO) {
+
+        Endereco endereco = new Endereco();
+
+        endereco.setEstado(enderecoDTO.getEstado());
+        endereco.setCidade(enderecoDTO.getCidade());
+        endereco.setBairro(enderecoDTO.getBairro());
+        endereco.setRua(enderecoDTO.getRua());
+        endereco.setNumero(enderecoDTO.getNumero());
+        endereco.setCep(enderecoDTO.getCep());
+        endereco.setComplemento(enderecoDTO.getComplemento());
+
+        return endereco;
     }
 }

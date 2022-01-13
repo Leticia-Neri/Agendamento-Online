@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class PacienteDTO {
 
+    private String codigo;
     @NotEmpty
     private String nome;
     private String sobrenome;
@@ -19,7 +20,8 @@ public class PacienteDTO {
     public PacienteDTO() {
     }
 
-    public PacienteDTO(String nome, String sobrenome, String sexo, Endereco endereco, String cpf, String dataNasc, String telefone) {
+    public PacienteDTO(String codigo,String nome, String sobrenome, String sexo, Endereco endereco, String cpf, String dataNasc, String telefone) {
+        this.codigo = codigo;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.sexo = sexo;
@@ -30,6 +32,7 @@ public class PacienteDTO {
     }
 
     public PacienteDTO(Paciente paciente){
+        this.codigo = paciente.getCodigo();
         this.nome = paciente.getNome();
         this.sobrenome = paciente.getSobrenome();
         this.sexo = paciente.getSexo();
@@ -93,5 +96,13 @@ public class PacienteDTO {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AgendamentoDTO;
+import com.example.demo.dto.PacienteDTO;
 import com.example.demo.exceptionHandler.ApiRequestException;
 import com.example.demo.models.Agendamento;
 import com.example.demo.models.Paciente;
@@ -44,5 +46,27 @@ public class AgendamentoServiceImpl implements AgendamentoService{
     @Override
     public List<Agendamento> obterTodos() {
         return agendamentoRepository.findAll();
+    }
+
+    @Override
+    public AgendamentoDTO convertAgendamento(Agendamento agendamento) {
+        AgendamentoDTO agendamentoDTO = new AgendamentoDTO();
+
+        agendamentoDTO.setEspecialidade(agendamento.getEspecialidade());
+        agendamentoDTO.setData(agendamento.getData());
+        agendamentoDTO.setUnidade(agendamento.getUnidade());
+
+        return agendamentoDTO;
+    }
+
+    @Override
+    public Agendamento converAgendamentoDTO(AgendamentoDTO agendamentoDTO) {
+        Agendamento agendamento = new Agendamento();
+
+        agendamento.setEspecialidade(agendamentoDTO.getEspecialidade());
+        agendamento.setData(agendamentoDTO.getData());
+        agendamento.setUnidade(agendamentoDTO.getUnidade());
+
+        return agendamento;
     }
 }

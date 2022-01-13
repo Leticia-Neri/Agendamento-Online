@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AgendamentoDTO;
+import com.example.demo.dto.PacienteDTO;
 import com.example.demo.models.Agendamento;
 import com.example.demo.models.Paciente;
 
@@ -16,4 +18,8 @@ public interface AgendamentoService {
     Agendamento obterPorId(String id);
 
     List<Agendamento>obterTodos();
+
+    AgendamentoDTO convertAgendamento(Agendamento agendamento);
+
+    Agendamento converAgendamentoDTO(AgendamentoDTO agendamentoDTODTO);
 }

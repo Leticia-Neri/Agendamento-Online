@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AgendamentoDTO;
 import com.example.demo.exceptionHandler.ApiRequestException;
 import com.example.demo.models.Agendamento;
+import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
 import com.example.demo.repository.AgendamentoRepository;
 import com.example.demo.service.AgendamentoService;
@@ -31,7 +33,9 @@ public class AgendamentoController {
     @PostMapping("/salvarAgendamento")
     @Operation(summary="Salva um agendamento")
     @ResponseStatus(HttpStatus.CREATED)
-    public Agendamento salvar(@RequestBody Agendamento agendamento){
+    public Agendamento salvar(@RequestBody AgendamentoDTO agendamentoDTO){
+
+        Agendamento agendamento = agendamentoService.converAgendamentoDTO(agendamentoDTO);
         agendamentoService.salvar(agendamento);
 
         log.info("Agendamento salvo com sucesso retornando no corpo da requisicao o Agendamento e Status CREATED");
@@ -54,8 +58,9 @@ public class AgendamentoController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary="Atualiza um agendamento")
-    public ResponseEntity<Agendamento> atualizar(@PathVariable String id, @RequestBody Agendamento agendamento){
+    public ResponseEntity<Agendamento> atualizar(@PathVariable String id, @RequestBody AgendamentoDTO agendamentoDTO){
 
+        Agendamento agendamento = agendamentoService.converAgendamentoDTO(agendamentoDTO);
         boolean agendamentoExiste = this.agendamentoRepository.existsById(agendamento.getCodigo());
 
         if(!agendamentoExiste){
