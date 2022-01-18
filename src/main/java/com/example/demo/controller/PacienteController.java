@@ -75,17 +75,12 @@ public class PacienteController {
     public ResponseEntity<Paciente> atualizar(@PathVariable String id, @RequestBody PacienteDTO pacienteDTO){
 
         Paciente paciente = pacienteService.convertPacienteDto(pacienteDTO);
-        boolean pacienteExiste = this.pacienteRepository.existsById(paciente.getCodigo());
-
-        if(!pacienteExiste){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
         paciente.setCodigo(id);
         paciente = pacienteService.atualizar(paciente);
 
         log.info("Agendamendo atualizando e status ok");
-        return ResponseEntity.ok(pacienteService.atualizar(paciente));
+        return ResponseEntity.ok(paciente);
     }
 
     @GetMapping(path = "/{id}")
@@ -95,6 +90,7 @@ public class PacienteController {
         if (!pacienteRepository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
 
         Paciente paciente = pacienteService.obterPorId(id);
 
@@ -115,6 +111,17 @@ public class PacienteController {
 
         log.info("Retornando usuários e status ok");
         return ResponseEntity.ok().body(pacienteService.obterTodos());
+    }
+
+    @GetMapping(path ="/nome/{nome}")
+    public ResponseEntity<Paciente> obterNome(@PathVariable String nome){
+
+        Paciente paciente = pacienteService.obterPorNome(nome);
+
+        return ResponseEntity.ok().body(paciente);
+
+
+
     }
 
 }

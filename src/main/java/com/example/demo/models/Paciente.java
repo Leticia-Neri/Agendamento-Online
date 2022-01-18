@@ -1,16 +1,13 @@
 package com.example.demo.models;
-
-import java.util.Date;
-
 import com.example.demo.dto.PacienteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 @Document
 public class Paciente {
@@ -18,11 +15,13 @@ public class Paciente {
     @Id
     private String codigo;
     @Schema(description = "Nome do paciente", example = "Laura")
-    @NotEmpty
+    @NotEmpty(message = "O campo nome não pode ser nulo")
     private String nome;
     @Schema(description = "Sobrenome do paciente", example = "Ramos")
+    @NotEmpty(message = "O campo nome não pode ser nulo")
     private String sobrenome;
     @Schema(description = "Sexo do paciente", example = "Feminino")
+    @NotEmpty(message = "O campo nome não pode ser nulo")
     private String sexo;
     @Schema(description = "Endereço do paciente")
     private Endereco endereco;

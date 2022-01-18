@@ -21,6 +21,8 @@ public interface PacienteService {
 
     PacienteDTO convertePaciente(Paciente paciente);
 
+    Paciente obterPorNome(String nome);
+
     Paciente convertPacienteDto(PacienteDTO pacienteDTO);
 
 }

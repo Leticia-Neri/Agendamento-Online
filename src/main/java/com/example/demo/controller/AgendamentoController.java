@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -33,7 +34,7 @@ public class AgendamentoController {
     @PostMapping("/salvarAgendamento")
     @Operation(summary="Salva um agendamento")
     @ResponseStatus(HttpStatus.CREATED)
-    public Agendamento salvar(@RequestBody AgendamentoDTO agendamentoDTO){
+    public Agendamento salvar(@RequestBody @Valid AgendamentoDTO agendamentoDTO){
 
         Agendamento agendamento = agendamentoService.converAgendamentoDTO(agendamentoDTO);
         agendamentoService.salvar(agendamento);
@@ -61,17 +62,12 @@ public class AgendamentoController {
     public ResponseEntity<Agendamento> atualizar(@PathVariable String id, @RequestBody AgendamentoDTO agendamentoDTO){
 
         Agendamento agendamento = agendamentoService.converAgendamentoDTO(agendamentoDTO);
-        boolean agendamentoExiste = this.agendamentoRepository.existsById(agendamento.getCodigo());
-
-        if(!agendamentoExiste){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
         agendamento.setCodigo(id);
         agendamento = agendamentoService.atualizar(agendamento);
 
         log.info("Agendamendo atualizando e status ok");
-        return ResponseEntity.ok().body(agendamentoService.atualizar(agendamento));
+        return ResponseEntity.ok().body(agendamento);
     }
 
     @GetMapping(path = "/{id}")

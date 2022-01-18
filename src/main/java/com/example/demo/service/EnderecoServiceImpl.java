@@ -37,12 +37,11 @@ public class EnderecoServiceImpl implements EnderecoService{
     @Override
     public Endereco atualizar(Endereco endereco) {
 
-        /*
         Optional<Endereco> enderecoid = enderecoRepository.findById(endereco.getCodigo());
         if(enderecoid.isEmpty()){
-            throw new RuntimeException("Endereço não encontrado");
+            throw new ApiRequestException("Endereço não encontrado");
         }
-        */
+
         return enderecoRepository.save(endereco);
     }
 

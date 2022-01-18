@@ -21,5 +21,5 @@ public interface AgendamentoService {
 
     AgendamentoDTO convertAgendamento(Agendamento agendamento);
 
-    Agendamento converAgendamentoDTO(AgendamentoDTO agendamentoDTODTO);
+    Agendamento converAgendamentoDTO(AgendamentoDTO agendamentoDTO);
 }

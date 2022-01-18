@@ -24,7 +24,7 @@ class CadastroPacienteIntegrationTests {
 	@DisplayName("Deve criar um livro com sucesso")
 	public void DeveCadastroPacienteComSucesso() {
 		Paciente paciente = new Paciente();
-		paciente.setCpf("765");
+		paciente.setCpf("745");
 		paciente.setNome("Fábia");
 		paciente.setSexo("Feminino");
 		paciente.setDataNasc("09/06/1975");

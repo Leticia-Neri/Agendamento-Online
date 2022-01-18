@@ -3,14 +3,19 @@ package com.example.demo.dto;
 import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class PacienteDTO {
 
-    private String codigo;
-    @NotEmpty
+    @NotEmpty(message = "O campo nome não pode ser nulo")
+    @NotNull
+    @NotBlank
     private String nome;
+    @NotEmpty(message = "O campo nome não pode ser nulo")
     private String sobrenome;
+    @NotEmpty(message = "O campo nome não pode ser nulo")
     private String sexo;
     private Endereco endereco;
     private String cpf;
@@ -20,8 +25,8 @@ public class PacienteDTO {
     public PacienteDTO() {
     }
 
-    public PacienteDTO(String codigo,String nome, String sobrenome, String sexo, Endereco endereco, String cpf, String dataNasc, String telefone) {
-        this.codigo = codigo;
+    public PacienteDTO(String nome, String sobrenome, String sexo, Endereco endereco, String cpf, String dataNasc, String telefone) {
+
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.sexo = sexo;
@@ -32,7 +37,7 @@ public class PacienteDTO {
     }
 
     public PacienteDTO(Paciente paciente){
-        this.codigo = paciente.getCodigo();
+
         this.nome = paciente.getNome();
         this.sobrenome = paciente.getSobrenome();
         this.sexo = paciente.getSexo();
@@ -98,11 +103,4 @@ public class PacienteDTO {
         this.telefone = telefone;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
 }

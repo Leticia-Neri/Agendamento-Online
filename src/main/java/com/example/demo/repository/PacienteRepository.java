@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface PacienteRepository extends MongoRepository<Paciente, String> {
 
     Optional<Paciente> findByCpf(String cpf);
+
+    Optional<Paciente> findByNome(String nome);
 }

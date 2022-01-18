@@ -4,6 +4,7 @@ import com.example.demo.dto.AgendamentoDTO;
 import com.example.demo.dto.PacienteDTO;
 import com.example.demo.exceptionHandler.ApiRequestException;
 import com.example.demo.models.Agendamento;
+import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
 import com.example.demo.repository.AgendamentoRepository;
 import com.example.demo.repository.PacienteRepository;
@@ -34,6 +35,11 @@ public class AgendamentoServiceImpl implements AgendamentoService{
 
     @Override
     public Agendamento atualizar(Agendamento agendamento) {
+
+        Optional<Agendamento> agendamentoId = agendamentoRepository.findById(agendamento.getCodigo());
+        if(agendamentoId.isEmpty()){
+            throw new ApiRequestException("Endereço não encontrado");
+        }
         return agendamentoRepository.save(agendamento);
     }
 

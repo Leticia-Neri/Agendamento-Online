@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotEmpty;
+
 @Document
 public class Agendamento {
 
@@ -17,6 +19,7 @@ public class Agendamento {
     @Schema(description = "Id do usuario")
     private String codigo;
     @Schema(description = "Especialidade da consulta", example = "Dermatologista")
+    @NotEmpty
     private String especialidade;
     //@JsonFormat(pattern="dd/MM/yyyy")
     @Schema(description = "Data da consulta", example = "05/10/2023")

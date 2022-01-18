@@ -3,9 +3,12 @@ package com.example.demo.dto;
 import com.example.demo.models.Paciente;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import javax.validation.constraints.NotEmpty;
+
 public class AgendamentoDTO {
 
 
+    @NotEmpty
     private String especialidade;
     private String data;
     private String unidade;

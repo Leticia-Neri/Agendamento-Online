@@ -59,17 +59,12 @@ public class EnderecoController {
     public ResponseEntity<Endereco> atualizar(@PathVariable String id, @RequestBody EnderecoDTO enderecoDTO){
 
         Endereco endereco = enderecoService.convertEnderecoDto(enderecoDTO);
-        boolean enderecoExiste = this.enderecoRepository.existsById(endereco.getCodigo());
-
-        if(!enderecoExiste){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
         endereco.setCodigo(id);
         endereco = enderecoService.atualizar(endereco);
 
         log.info("Agendamendo atualizando e status ok");
-        return ResponseEntity.ok(enderecoService.atualizar(endereco));
+        return ResponseEntity.ok(endereco);
     }
 
     @GetMapping(path = "/{id}")

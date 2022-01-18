@@ -11,10 +11,19 @@ public class MensagemException {
     private String mensagem;
     private HttpStatus httpStatus;
 
+    /*
+    private Integer status;
+    private String type;
+    private String title;
+    private String detail;
+
+
+     */
 
     public MensagemException(String mensagem, HttpStatus httpStatus) {
         this.mensagem = mensagem;
         this.httpStatus = httpStatus;
+
 
     }
 
@@ -33,7 +42,6 @@ public class MensagemException {
     public void setHttpStatus(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
     }
-
 }
 
 

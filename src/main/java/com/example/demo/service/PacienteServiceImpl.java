@@ -30,17 +30,24 @@ public class PacienteServiceImpl implements PacienteService{
 
     @Override
     public void deletar(String id) {
+
         pacienteRepository.deleteById(id);
 
     }
 
     @Override
     public Paciente atualizar(Paciente paciente) {
+
+        Optional<Paciente> pacienteId = pacienteRepository.findById(paciente.getCodigo());
+        if(pacienteId.isEmpty()){
+            throw new ApiRequestException("Paciente não encontrado");
+        }
        return pacienteRepository.save(paciente);
     }
 
     @Override
     public Paciente obterPorId(String id) {
+
         return pacienteRepository.findById(id).get();
     }
 
@@ -55,7 +62,6 @@ public class PacienteServiceImpl implements PacienteService{
 
         PacienteDTO pacienteDTO = new PacienteDTO();
 
-        pacienteDTO.setCodigo(paciente.getCodigo());
         pacienteDTO.setNome(paciente.getNome());
         pacienteDTO.setSobrenome(paciente.getSobrenome());
         pacienteDTO.setSexo(paciente.getSexo());
@@ -67,9 +73,16 @@ public class PacienteServiceImpl implements PacienteService{
     }
 
     @Override
+    public Paciente obterPorNome(String nome) {
+        Optional<Paciente> pacienteNome = pacienteRepository.findByNome(nome);
+
+        return pacienteNome.orElse(null);
+    }
+
+    @Override
     public Paciente convertPacienteDto(PacienteDTO pacienteDTO) {
         Paciente paciente = new Paciente();
-        paciente.setCodigo(pacienteDTO.getCodigo());
+
         paciente.setNome(pacienteDTO.getNome());
         paciente.setSobrenome(pacienteDTO.getSobrenome());
         paciente.setSexo(pacienteDTO.getSexo());
