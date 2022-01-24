@@ -8,9 +8,10 @@ import javax.validation.constraints.NotEmpty;
 public class AgendamentoDTO {
 
 
-    @NotEmpty
+    @NotEmpty(message = "O campo especialidade não pode ser nulo")
     private String especialidade;
     private String data;
+    @NotEmpty(message = "O campo unidade não pode ser nulo")
     private String unidade;
     private Paciente paciente;
 

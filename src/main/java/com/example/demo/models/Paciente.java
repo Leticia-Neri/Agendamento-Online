@@ -1,6 +1,7 @@
 package com.example.demo.models;
 import com.example.demo.dto.PacienteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,14 +19,15 @@ public class Paciente {
     @NotEmpty(message = "O campo nome não pode ser nulo")
     private String nome;
     @Schema(description = "Sobrenome do paciente", example = "Ramos")
-    @NotEmpty(message = "O campo nome não pode ser nulo")
+    @NotEmpty(message = "O campo sobrenome não pode ser nulo")
     private String sobrenome;
     @Schema(description = "Sexo do paciente", example = "Feminino")
-    @NotEmpty(message = "O campo nome não pode ser nulo")
+    @NotEmpty(message = "O campo sexo não pode ser nulo")
     private String sexo;
     @Schema(description = "Endereço do paciente")
     private Endereco endereco;
     @Schema(description = "Cpf do paciente", example = "12345678998")
+    @CPF(message = "cpf inválido")
     private String cpf;
     //@JsonFormat(pattern = "dd/MM/yyyy")
     @Schema(description = "Data de nascimento do paciente", example = "03/09/1980")

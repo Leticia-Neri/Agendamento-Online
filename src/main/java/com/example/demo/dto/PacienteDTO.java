@@ -2,23 +2,26 @@ package com.example.demo.dto;
 
 import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class PacienteDTO {
 
     @NotEmpty(message = "O campo nome não pode ser nulo")
-    @NotNull
-    @NotBlank
+    @Pattern(regexp = "^[A-Za-z ]+$")
     private String nome;
-    @NotEmpty(message = "O campo nome não pode ser nulo")
+    @NotEmpty(message = "O campo sobrenome não pode ser nulo")
     private String sobrenome;
-    @NotEmpty(message = "O campo nome não pode ser nulo")
+    @NotEmpty(message = "O campo sexo não pode ser nulo")
     private String sexo;
     private Endereco endereco;
+   // @CPF(message = "cpf iválido")
     private String cpf;
+    @Pattern(regexp = "^[0-9/]+$", message = "Data de nascimento deve conter apenas números")
     private String dataNasc;
     private String telefone;
 

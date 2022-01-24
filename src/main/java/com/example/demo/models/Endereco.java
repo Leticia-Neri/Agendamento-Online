@@ -13,14 +13,19 @@ public class Endereco {
     @Schema(description = "Id do endereço")
     private String codigo;
     @Schema(description = "Estado do endereço", example = "São Paulo")
+    @NotEmpty(message = "O campo estado não pode ser nulo")
     private String estado;
     @Schema(description = "Cidade do endereço", example = "São Paulo")
+    @NotEmpty(message = "O campo cidade não pode ser nulo")
     private String cidade;
     @Schema(description = "Bairro do endereço", example = "Mooca")
+    @NotEmpty(message = "O campo bairro não pode ser nulo")
     private String bairro;
     @Schema(description = "Rua do endereço", example = "Rua Jardim")
+    @NotEmpty(message = "O campo rua não pode ser nulo")
     private String rua;
     @Schema(description = "Número do endereço", example = "123")
+    @NotEmpty(message = "O campo numero não pode ser nulo")
     private String numero;
     @Schema(description = "Cep do endereço", example = "12345678")
     private String cep;

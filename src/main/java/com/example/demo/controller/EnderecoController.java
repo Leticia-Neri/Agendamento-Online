@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class EnderecoController {
     @PostMapping("/salvarEndereco")
     @Operation(summary="Salva um endereço")
     @ResponseStatus(HttpStatus.CREATED)
-    public Endereco salvar(@RequestBody EnderecoDTO enderecoDTO){
+    public Endereco salvar(@Valid @RequestBody EnderecoDTO enderecoDTO){
 
         Endereco endereco = enderecoService.convertEnderecoDto(enderecoDTO);
 
@@ -44,6 +45,7 @@ public class EnderecoController {
     public ResponseEntity<Void> deletar(@PathVariable String id){
 
         if(!enderecoRepository.existsById(id)){
+            log.info("Endereço não encontrado");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -72,6 +74,7 @@ public class EnderecoController {
     public ResponseEntity<Endereco> obterPorCodigo(@PathVariable String id){
 
         if (!enderecoRepository.existsById(id)) {
+            log.info("Endereço não encontrado retorno not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -86,10 +89,11 @@ public class EnderecoController {
         List<Endereco> lista = enderecoService.obterTodos();
 
         if(lista.isEmpty()){
+            log.info("Lista de endereço vazia e retorno not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        log.info("Retornando usuários e status ok");
+        log.info("Retornando endereços e status ok");
         return ResponseEntity.ok().body(enderecoService.obterTodos());
     }
 }

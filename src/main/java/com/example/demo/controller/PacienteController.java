@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.PacienteDTO;
-import com.example.demo.exceptionHandler.ApiRequestException;
-import com.example.demo.models.Endereco;
+
 import com.example.demo.models.Paciente;
 import com.example.demo.service.PacienteService;
 import io.swagger.v3.oas.annotations.Operation;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,8 @@ import com.example.demo.repository.PacienteRepository;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+
+
 
 @RestController
 //pacientes
@@ -33,23 +34,16 @@ public class PacienteController {
     @Autowired
     PacienteRepository pacienteRepository;
 
-    Logger log = Logger.getLogger("com.example.demo.controller");
+    private static final Logger log = LoggerFactory.getLogger(PacienteController.class);
 
     @PostMapping("/salvarPaciente")
     @Operation(summary="Salva um paciente")
     @ResponseStatus(HttpStatus.CREATED)
     public Paciente salvar(@RequestBody @Valid PacienteDTO pacienteDTO){
 
+        log.info("Entrando no metódo salvar paciente pelo codigo {}", pacienteDTO.getCpf());
+
         Paciente paciente = pacienteService.convertPacienteDto(pacienteDTO);
-
-
-
-        /*
-        if(paciente.getNome().isEmpty()){
-            throw new
-        }
-
-         */
 
         log.info("Agendamento salvo com sucesso retornando no corpo da requisicao o Agendamento e Status CREATED");
         return pacienteService.salvar(paciente);
@@ -58,10 +52,13 @@ public class PacienteController {
 
     @DeleteMapping(path = "/{id}")
     @Operation(summary="Deletar um paciente")
-    public ResponseEntity<Void> deletar(@PathVariable String id){
+    public ResponseEntity<Object> deletar(@PathVariable String id){
+
+        log.info("Entrando no metódo deletar paciente pelo codigo");
 
         if(!pacienteRepository.existsById(id)){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            log.info("Paciente não encontrado");
+            return new ResponseEntity<>("Paciente não encontrado",HttpStatus.NOT_FOUND);
         }
 
         pacienteService.deletar(id);
@@ -73,6 +70,8 @@ public class PacienteController {
     @PutMapping(path = "/{id}")
     @Operation(summary="Atualizar um paciente")
     public ResponseEntity<Paciente> atualizar(@PathVariable String id, @RequestBody PacienteDTO pacienteDTO){
+
+        log.info("Entrando no metódo salvar paciente pelo codigo");
 
         Paciente paciente = pacienteService.convertPacienteDto(pacienteDTO);
 
@@ -87,14 +86,15 @@ public class PacienteController {
     @Operation(summary="Retornar um paciente pelo codigo")
     public ResponseEntity<Paciente> obterPorCodigo(@PathVariable String id){
 
+        log.info("Entrando no metódo retornar paciente pelo codigo \r\n Buscando paciente por id no banco de dados");
         if (!pacienteRepository.existsById(id)) {
+            log.info("Paciente com id:{} não existe e retorno not found", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-
         Paciente paciente = pacienteService.obterPorId(id);
 
-        log.info("Retornando agendamento no corpo da requisição e status ok");
+        log.info("Retornando paciente no corpo da requisição e status ok");
         return ResponseEntity.status(HttpStatus.OK).body(paciente);
     }
 
@@ -103,13 +103,16 @@ public class PacienteController {
     @Operation(summary="Retornar todos os pacientes")
     public ResponseEntity<List<Paciente>> obterTodos(){
 
+        log.info("Entrando no metódo retornar todos pacientes");
+
         List<Paciente> lista = pacienteService.obterTodos();
 
         if(lista.isEmpty()){
+            log.info("Lista vazia retorno not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        log.info("Retornando usuários e status ok");
+        log.info("Retornando pacientes e status ok");
         return ResponseEntity.ok().body(pacienteService.obterTodos());
     }
 

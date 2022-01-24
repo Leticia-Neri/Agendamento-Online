@@ -2,13 +2,22 @@ package com.example.demo.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 public class EnderecoDTO {
 
+    @NotEmpty(message = "O campo estado não pode ser nulo")
     private String estado;
+    @NotEmpty(message = "O campo cidade não pode ser nulo")
     private String cidade;
+    @NotEmpty(message = "O campo bairro não pode ser nulo")
     private String bairro;
+    @NotEmpty(message = "O campo rua não pode ser nulo")
     private String rua;
+    @NotEmpty(message = "O campo numero não pode ser nulo")
     private String numero;
+    //@Pattern("(\\d{2})\\d{4}\\d{4}")
     private String cep;
     private String complemento;
 

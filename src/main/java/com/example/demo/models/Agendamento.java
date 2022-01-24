@@ -19,12 +19,13 @@ public class Agendamento {
     @Schema(description = "Id do usuario")
     private String codigo;
     @Schema(description = "Especialidade da consulta", example = "Dermatologista")
-    @NotEmpty
+    @NotEmpty(message = "O campo especialidade não pode ser nulo")
     private String especialidade;
     //@JsonFormat(pattern="dd/MM/yyyy")
     @Schema(description = "Data da consulta", example = "05/10/2023")
     private String data;
     @Schema(description = "Unidade da consulta", example = "Vila Mariana")
+    @NotEmpty(message = "O campo unidade não pode ser nulo")
     private String unidade;
     private Paciente paciente;
 

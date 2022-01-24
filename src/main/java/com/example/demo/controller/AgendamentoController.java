@@ -92,7 +92,7 @@ public class AgendamentoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        log.info("Retornando usuários e status ok");
+        log.info("Retornando todos agendamentos e status ok");
         return ResponseEntity.ok().body(agendamentoService.obterTodos());
     }
 }
