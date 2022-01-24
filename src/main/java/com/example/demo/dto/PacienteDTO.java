@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.nio.charset.StandardCharsets;
 
 public class PacienteDTO {
 
@@ -37,6 +38,7 @@ public class PacienteDTO {
         this.cpf = cpf;
         this.dataNasc = dataNasc;
         this.telefone = telefone;
+
     }
 
     public PacienteDTO(Paciente paciente){
@@ -48,6 +50,7 @@ public class PacienteDTO {
         this.cpf = paciente.getCpf();
         this.dataNasc = paciente.getDataNasc();
         this.telefone = paciente.getTelefone();
+
     }
 
     public String getNome() {

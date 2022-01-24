@@ -35,6 +35,7 @@ public class Paciente {
     @Schema(description = "Tefone do paciente", example = "12345678")
     private String telefone;
 
+
     public Paciente(String nome, String sobrenome, String sexo, Endereco endereco, String cpf, String dataNasc,
                     String telefone) {
         super();
@@ -45,6 +46,7 @@ public class Paciente {
         this.cpf = cpf;
         this.dataNasc = dataNasc;
         this.telefone = telefone;
+
     }
 
     public Paciente() {
@@ -108,4 +110,5 @@ public class Paciente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
 }
