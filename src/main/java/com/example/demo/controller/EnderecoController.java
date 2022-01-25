@@ -6,6 +6,8 @@ import com.example.demo.models.Paciente;
 import com.example.demo.repository.EnderecoRepository;
 import com.example.demo.service.EnderecoService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/enderecos")
 @CrossOrigin(origins = "*")
 public class EnderecoController {
 
-    Logger log = Logger.getLogger("com.example.demo.controller");
+    private static final Logger log = LoggerFactory.getLogger(EnderecoController.class);
 
     @Autowired
     EnderecoService enderecoService;
@@ -33,6 +34,7 @@ public class EnderecoController {
     @ResponseStatus(HttpStatus.CREATED)
     public Endereco salvar(@Valid @RequestBody EnderecoDTO enderecoDTO){
 
+        log.info("Entrando no metódo salvar endereco");
         Endereco endereco = enderecoService.convertEnderecoDto(enderecoDTO);
 
         log.info("Endereço salvo com sucesso retornando no corpo da requisicao o Endereço e Status CREATED");
@@ -44,6 +46,7 @@ public class EnderecoController {
     @Operation(summary="Deletar um endereco")
     public ResponseEntity<Void> deletar(@PathVariable String id){
 
+        log.info("Entrando no metódo deletar endereço pelo codigo \r\n Buscando endereco por id : {} no banco de dados", id);
         if(!enderecoRepository.existsById(id)){
             log.info("Endereço não encontrado");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,7 +54,7 @@ public class EnderecoController {
 
         enderecoService.deletar(id);
 
-        log.info("Deletando agendamento e retornando status noContent");
+        log.info("Deletando endereço de id : {} e retornando status noContent", id);
         return ResponseEntity.noContent().build();
 
     }
@@ -60,12 +63,14 @@ public class EnderecoController {
     @Operation(summary="Atualizar um endereço")
     public ResponseEntity<Endereco> atualizar(@PathVariable String id, @RequestBody EnderecoDTO enderecoDTO){
 
+        log.info("Entrando no metódo atualizar endereço pelo codigo");
         Endereco endereco = enderecoService.convertEnderecoDto(enderecoDTO);
 
         endereco.setCodigo(id);
+        log.info("Atualizando enderço");
         endereco = enderecoService.atualizar(endereco);
 
-        log.info("Agendamendo atualizando e status ok");
+        log.info("Retornando endereço e status ok");
         return ResponseEntity.ok(endereco);
     }
 
@@ -73,8 +78,9 @@ public class EnderecoController {
     @Operation(summary="Retornar um endereço por codigo")
     public ResponseEntity<Endereco> obterPorCodigo(@PathVariable String id){
 
+        log.info("Entrando no metódo obter endreços pelo codigo \r\n Buscando endereço por id no banco de dados");
         if (!enderecoRepository.existsById(id)) {
-            log.info("Endereço não encontrado retorno not found");
+            log.info("Endereço de id : {} não encontrado retorno not found", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -86,8 +92,10 @@ public class EnderecoController {
     @Operation(summary="Retornar todos os endereços")
     public ResponseEntity<List<Endereco>> obterTodos(){
 
+        log.info("Entrando no metódo obter todos endereços \r\n Buscando todos endereços no banco de dados");
         List<Endereco> lista = enderecoService.obterTodos();
 
+        log.info("Verificando se existe endereços no banco de dados");
         if(lista.isEmpty()){
             log.info("Lista de endereço vazia e retorno not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

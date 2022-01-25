@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.models.Agendamento;
 import com.example.demo.repository.PacienteRepository;
 
 import javax.validation.Valid;
-import java.util.Collections;
+
 import java.util.List;
 
 
@@ -73,6 +71,7 @@ public class PacienteController {
 
         log.info("Entrando no metódo salvar paciente pelo codigo");
 
+
         Paciente paciente = pacienteService.convertPacienteDto(pacienteDTO);
 
         paciente.setCodigo(id);
@@ -103,7 +102,7 @@ public class PacienteController {
     @Operation(summary="Retornar todos os pacientes")
     public ResponseEntity<List<Paciente>> obterTodos(){
 
-        log.info("Entrando no metódo retornar todos pacientes");
+        log.info("Entrando no metódo retornar todos pacientes \r\n E obtendo do bacndo de bados todos os pacientes ");
 
         List<Paciente> lista = pacienteService.obterTodos();
 
