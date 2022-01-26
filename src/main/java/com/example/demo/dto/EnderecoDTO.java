@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 public class EnderecoDTO {
 
     @NotEmpty(message = "O campo estado não pode ser nulo")
+    @Schema(description = "Estado do endereço", example = "São Paulo")
     private String estado;
     @NotEmpty(message = "O campo cidade não pode ser nulo")
     private String cidade;
