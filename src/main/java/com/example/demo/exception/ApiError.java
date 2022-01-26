@@ -29,9 +29,17 @@ public class ApiError {
         errors  = Arrays.asList(error);
 
     }
+    public ApiError(HttpStatus status, String message, String error){
+        super();
+        this.status = status;
+        this.message =message;
+        errors  = Arrays.asList(error);
 
+    }
     public ApiError() {
     }
+
+
 
     public HttpStatus getStatus() {
         return status;

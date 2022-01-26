@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class PacienteDTO {
 
     @NotEmpty(message = "O campo nome não pode ser nulo")
-    @Pattern(regexp = "^[A-Za-z ]+$")
+    @Pattern(regexp = "^[A-Za-z ]+$", message = "O campo deve conter apenas letras")
     private String nome;
     @NotEmpty(message = "O campo sobrenome não pode ser nulo")
     private String sobrenome;

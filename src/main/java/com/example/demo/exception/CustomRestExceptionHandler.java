@@ -31,5 +31,14 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
     }
 
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    public ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request) {
+        String error = ex.getName() + " should be of type " + ex.getRequiredType().getName();
+
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+
 }
 
