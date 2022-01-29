@@ -12,7 +12,11 @@ public class ApiError {
     private String message;
     private List<String> errors;
 
-    public ApiError(HttpStatus status,Integer code, String message, List<String> erros){
+    public ApiError(String message) {
+        this.message = message;
+    }
+
+    public ApiError(HttpStatus status, Integer code, String message, List<String> erros){
         super();
         this.status = status;
         this.code = code;

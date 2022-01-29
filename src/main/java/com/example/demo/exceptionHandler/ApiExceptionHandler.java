@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-
+import java.nio.file.AccessDeniedException;
 
 
 //conseguir fazer o mapeamento do tratamento de exceções
@@ -26,6 +26,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         //return response entity
         return new ResponseEntity<>(mensagemException, HttpStatus.BAD_REQUEST);
     }
+
 
 
 
