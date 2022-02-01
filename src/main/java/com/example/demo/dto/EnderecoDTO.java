@@ -9,8 +9,10 @@ public class EnderecoDTO {
 
     @NotEmpty(message = "O campo estado não pode ser nulo")
     @Schema(description = "Estado do endereço", example = "São Paulo")
+    @Pattern(regexp = "^[A-Za-z ]+$", message = "O campo deve conter apenas letras")
     private String estado;
     @NotEmpty(message = "O campo cidade não pode ser nulo")
+    @Pattern(regexp = "^[A-Za-z ]+$", message = "O campo deve conter apenas letras")
     private String cidade;
     @NotEmpty(message = "O campo bairro não pode ser nulo")
     private String bairro;

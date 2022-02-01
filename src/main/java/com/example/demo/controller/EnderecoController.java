@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -46,6 +49,7 @@ public class EnderecoController {
 
     @DeleteMapping(path = "/{id}")
     @Operation(summary="Deletar um endereco")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Void> deletar(@PathVariable String id){
 
         log.info("Entrando no metódo deletar endereço pelo codigo \r\n Buscando endereco por id : {} no banco de dados", id);
@@ -63,6 +67,7 @@ public class EnderecoController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary="Atualizar um endereço")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Endereco> atualizar(@PathVariable String id, @RequestBody EnderecoDTO enderecoDTO){
 
         log.info("Entrando no metódo atualizar endereço pelo codigo");
@@ -105,5 +110,9 @@ public class EnderecoController {
 
         log.info("Retornando endereços e status ok");
         return ResponseEntity.ok().body(enderecoService.obterTodos());
+    }
+    @GetMapping("/userInfo")
+    public UserDetails userInfo(@AuthenticationPrincipal UserDetails user){
+        return user;
     }
 }

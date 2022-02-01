@@ -4,12 +4,14 @@ import com.example.demo.models.Paciente;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 public class AgendamentoDTO {
 
 
     @NotEmpty(message = "O campo especialidade não pode ser nulo")
     private String especialidade;
+    @Pattern(regexp = "^[0-9/]+$", message = "Data de nascimento deve conter apenas números")
     private String data;
     @NotEmpty(message = "O campo unidade não pode ser nulo")
     private String unidade;

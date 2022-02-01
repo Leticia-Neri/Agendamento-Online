@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,6 +36,7 @@ public class AgendamentoController {
     @PostMapping("/salvarAgendamento")
     @Operation(summary="Salva um agendamento")
     @ResponseStatus(HttpStatus.CREATED)
+    @Secured({"ROLE_ADMIN"})
     public Agendamento salvar(@RequestBody @Valid AgendamentoDTO agendamentoDTO){
 
         log.info("Entrando no método salvar agendamento");
@@ -49,6 +51,7 @@ public class AgendamentoController {
 
     @DeleteMapping(path = "/{id}")
     @Operation(summary="Deleta um agendamento")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Void> deletar(@PathVariable String id){
 
         log.info("Entrando no método deletar agendamento \r\n Verificando se agendamento de id : {} existe no banco de dados", id);
@@ -66,6 +69,7 @@ public class AgendamentoController {
 
     @PutMapping(path = "/{id}")
     @Operation(summary="Atualiza um agendamento")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Agendamento> atualizar(@PathVariable String id, @RequestBody AgendamentoDTO agendamentoDTO){
 
         log.info("Entrando no método deatualizar agendamento");
