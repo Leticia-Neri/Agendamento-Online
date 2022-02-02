@@ -8,39 +8,52 @@ import java.util.List;
 
 public class MensagemException {
 
-    private String mensagem;
-    private HttpStatus httpStatus;
-
-    /*
     private Integer status;
-    private String type;
-    private String title;
-    private String detail;
+    private String error;
+    private String message;
+    private String path;
 
-
-     */
-
-    public MensagemException(String mensagem, HttpStatus httpStatus) {
-        this.mensagem = mensagem;
-        this.httpStatus = httpStatus;
-
-
+    public MensagemException() {
     }
 
-    public String getMensagem() {
-        return mensagem;
+    public MensagemException( Integer status, String error, String message, String path) {
+
+        this.status = status;
+        this.error = error;
+        this.message = message;
+        this.path = path;
     }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+    public Integer getStatus() {
+        return status;
     }
 
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
 

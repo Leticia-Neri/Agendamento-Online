@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
@@ -14,16 +15,23 @@ public class PacienteDTO {
 
     @NotEmpty(message = "O campo nome não pode ser nulo")
     @Pattern(regexp = "^[A-Za-z ]+$", message = "O campo deve conter apenas letras")
+    @Schema(description = "Nome do paciente", example = "Laura")
     private String nome;
     @NotEmpty(message = "O campo sobrenome não pode ser nulo")
+    @Schema(description = "Sobrenome do paciente", example = "Ramos")
     private String sobrenome;
     @NotEmpty(message = "O campo sexo não pode ser nulo")
+    @Schema(description = "Sexo do paciente", example = "Feminino")
     private String sexo;
+    @Schema(description = "Endereço do paciente")
     private Endereco endereco;
    // @CPF(message = "cpf iválido")
+    @Schema(description = "Cpf do paciente", example = "12345678998")
     private String cpf;
     @Pattern(regexp = "^[0-9/]+$", message = "Data de nascimento deve conter apenas números")
+    @Schema(description = "Data de nascimento do paciente", example = "03/09/1980")
     private String dataNasc;
+    @Schema(description = "Tefone do paciente", example = "12345678")
     private String telefone;
 
     public PacienteDTO() {

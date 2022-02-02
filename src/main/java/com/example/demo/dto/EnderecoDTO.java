@@ -13,12 +13,16 @@ public class EnderecoDTO {
     private String estado;
     @NotEmpty(message = "O campo cidade não pode ser nulo")
     @Pattern(regexp = "^[A-Za-z ]+$", message = "O campo deve conter apenas letras")
+    @Schema(description = "Cidade do endereço", example = "São Paulo")
     private String cidade;
     @NotEmpty(message = "O campo bairro não pode ser nulo")
+    @Schema(description = "Bairro do endereço", example = "Mooca")
     private String bairro;
     @NotEmpty(message = "O campo rua não pode ser nulo")
+    @Schema(description = "Rua do endereço", example = "Rua Jardim")
     private String rua;
     @NotEmpty(message = "O campo numero não pode ser nulo")
+    @Schema(description = "Número do endereço", example = "123")
     private String numero;
     //@Pattern("(\\d{2})\\d{4}\\d{4}")
     private String cep;

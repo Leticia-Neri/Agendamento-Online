@@ -22,7 +22,7 @@ public class PacienteServiceImpl implements PacienteService{
 
         Optional<Paciente> pacienteCpf = pacienteRepository.findByCpf(paciente.getCpf());
         if(pacienteCpf.isPresent()){
-            throw new ApiRequestException("Paciente já cadastrado");
+            throw new ApiRequestException("Paciente com CPF já cadastrado");
         }
 
         return pacienteRepository.save(paciente);
