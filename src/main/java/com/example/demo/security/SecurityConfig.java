@@ -1,6 +1,7 @@
 
 package com.example.demo.security;
 
+import org.hibernate.validator.cfg.defs.RangeDef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests((requests) -> {
-            ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)requests.anyRequest()).authenticated();
-        });
-        http.httpBasic().and().csrf().disable();
+//        http.authorizeRequests((requests) -> {
+//            ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)requests.anyRequest()).authenticated();
+//        });
+        http.csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/api/salvarPaciente", "/api/deletar/{id}", "/api/atualizar/{id}").hasRole("ADMIN")
+                .antMatchers("/enderecos/salvarEndereco", "/enderecos/deletar/{id}", "/enderecos/atualizar/{id}").hasRole("ADMIN")
+                .antMatchers("/agendamentos/salvarAgendamento", "/agendamentos/deletar/{id}", "/agendamentos/atualizar/{id}").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+
 
     }
 

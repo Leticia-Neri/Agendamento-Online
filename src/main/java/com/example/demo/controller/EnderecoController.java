@@ -36,7 +36,6 @@ public class EnderecoController {
     @PostMapping("/salvarEndereco")
     @Operation(summary="Salva um endereço")
     @ResponseStatus(HttpStatus.CREATED)
-    @Secured({"ROLE_ADMIN"})
     public Endereco salvar(@Valid @RequestBody EnderecoDTO enderecoDTO){
 
         log.info("Entrando no metódo salvar endereco");
@@ -47,9 +46,8 @@ public class EnderecoController {
         return endereco;
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/deletar/{id}")
     @Operation(summary="Deletar um endereco")
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Void> deletar(@PathVariable String id){
 
         log.info("Entrando no metódo deletar endereço pelo codigo \r\n Buscando endereco por id : {} no banco de dados", id);
@@ -65,9 +63,8 @@ public class EnderecoController {
 
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/atualizar/{id}")
     @Operation(summary="Atualizar um endereço")
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Endereco> atualizar(@PathVariable String id, @RequestBody EnderecoDTO enderecoDTO){
 
         log.info("Entrando no metódo atualizar endereço pelo codigo");

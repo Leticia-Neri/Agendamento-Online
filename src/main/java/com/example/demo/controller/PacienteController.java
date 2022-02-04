@@ -38,7 +38,7 @@ public class PacienteController {
     @PostMapping("/salvarPaciente")
     @Operation(summary="Salva um paciente")
     @ResponseStatus(HttpStatus.CREATED)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public Paciente salvar(@RequestBody @Valid PacienteDTO pacienteDTO){
 
         log.info("Entrando no metódo salvar paciente pelo codigo {}", pacienteDTO.getCpf());
@@ -50,9 +50,9 @@ public class PacienteController {
     }
 
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/deletar/{id}")
     @Operation(summary="Deletar um paciente")
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Object> deletar(@PathVariable String id){
 
         log.info("Entrando no metódo deletar paciente pelo codigo");
@@ -68,9 +68,9 @@ public class PacienteController {
         return  ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/atualizar/{id}")
     @Operation(summary="Atualizar um paciente")
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Paciente> atualizar(@PathVariable String id, @RequestBody PacienteDTO pacienteDTO){
 
         log.info("Entrando no metódo salvar paciente pelo codigo");

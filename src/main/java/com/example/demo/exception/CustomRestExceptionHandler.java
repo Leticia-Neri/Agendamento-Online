@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +41,15 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
       return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
  }
 
-    @ExceptionHandler({AccessDeniedException.class})
-    public ResponseEntity accessDenied(){
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError("Acesso Negado"));
-    }
+//    @ExceptionHandler({AccessDeniedException.class})
+//    public ResponseEntity accessDenied(){
+//        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError("Acesso Negado"));
+//    }
 
+        @ExceptionHandler({AccessDeniedException.class})
+    public ResponseEntity accessDenied(){
+    return new ResponseEntity<>("acesso negado", HttpStatus.OK);
+        }
 
 
 }
