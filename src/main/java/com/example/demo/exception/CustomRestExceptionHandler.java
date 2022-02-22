@@ -1,5 +1,8 @@
 package com.example.demo.exception;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,42 +17,63 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.file.AccessDeniedException;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
+
+
+    @Autowired
+    private MessageSource messageSource;
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<String> erros = new ArrayList<String>();
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            erros.add(error.getField() + ":" + error.getDefaultMessage());
+        List<ApiError.Campo> campos = new ArrayList<>();
+
+        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
+            String nome = ((FieldError) error).getField();
+            String mensagem = messageSource.getMessage(error, LocaleContextHolder.getLocale());
+
+            campos.add(new ApiError.Campo(nome, mensagem));
         }
-        for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            erros.add(error.getObjectName() + ":" + error.getDefaultMessage());
-        }
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, status.value(), "Paramêtros Inválidos", erros);
-        return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
+
+        ApiError apiError = new ApiError();
+        apiError.setStatus(status.value());
+        apiError.setDataHora(OffsetDateTime.now());
+        apiError.setTitulo("Um ou mais campos inválidos. Preencha corretamente!");
+        apiError.setCampos(campos);
+
+        return handleExceptionInternal(ex, apiError, headers, status, request);
     }
 
-    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
-    public ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request) {
-        String error = ex.getName() + " should be of type " + ex.getRequiredType().getName();
+    @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleNegocio(RuntimeException ex, WebRequest request){
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
-      return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
- }
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
-//    @ExceptionHandler({AccessDeniedException.class})
-//    public ResponseEntity accessDenied(){
-//        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError("Acesso Negado"));
-//    }
+        ApiError apiError = new ApiError();
+        apiError.setStatus(status.value());
+        apiError.setDataHora(OffsetDateTime.now());
+        apiError.setTitulo(ex.getMessage());
 
-        @ExceptionHandler({AccessDeniedException.class})
-    public ResponseEntity accessDenied(){
-    return new ResponseEntity<>("acesso negado", HttpStatus.OK);
-        }
+        return handleExceptionInternal(ex, apiError, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> accessDenied(SecurityException ex, WebRequest request){
+        HttpStatus status = HttpStatus.FORBIDDEN;
+
+        ApiError securityMessage = new ApiError();
+        securityMessage.setStatus(status.value());
+        securityMessage.setDataHora(OffsetDateTime.now());
+        securityMessage.setTitulo("Acesso negado");
+        return handleExceptionInternal(ex, securityMessage, new HttpHeaders(), status, request);
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ import com.example.demo.dto.PacienteDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ public class Paciente {
     @Schema(description = "Sexo do paciente", example = "Feminino")
     @NotEmpty(message = "O campo sexo não pode ser nulo")
     private String sexo;
+    @DBRef
     @Schema(description = "Endereço do paciente")
     private Endereco endereco;
     @Schema(description = "Cpf do paciente", example = "12345678998")

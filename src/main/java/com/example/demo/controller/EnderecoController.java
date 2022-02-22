@@ -33,7 +33,8 @@ public class EnderecoController {
     @Autowired
     EnderecoRepository enderecoRepository;
 
-    @PostMapping("/salvarEndereco")
+    @PostMapping("/admin/salvarEndereco")
+    //@PostMapping("/salvarEndereco")
     @Operation(summary="Salva um endereço")
     @ResponseStatus(HttpStatus.CREATED)
     public Endereco salvar(@Valid @RequestBody EnderecoDTO enderecoDTO){
@@ -46,7 +47,8 @@ public class EnderecoController {
         return endereco;
     }
 
-    @DeleteMapping(path = "/deletar/{id}")
+    @DeleteMapping(path = "/admin/{id}")
+    //@DeleteMapping(path = "/deletar/{id}")
     @Operation(summary="Deletar um endereco")
     public ResponseEntity<Void> deletar(@PathVariable String id){
 
@@ -63,7 +65,8 @@ public class EnderecoController {
 
     }
 
-    @PutMapping(path = "/atualizar/{id}")
+    @PutMapping(path = "/admin/{id}")
+    //@PutMapping(path = "/atualizar/{id}")
     @Operation(summary="Atualizar um endereço")
     public ResponseEntity<Endereco> atualizar(@PathVariable String id, @RequestBody EnderecoDTO enderecoDTO){
 

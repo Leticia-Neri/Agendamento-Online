@@ -35,10 +35,9 @@ public class PacienteController {
 
     private static final Logger log = LoggerFactory.getLogger(PacienteController.class);
 
-    @PostMapping("/salvarPaciente")
+    @PostMapping("/admin/salvarPaciente")
     @Operation(summary="Salva um paciente")
     @ResponseStatus(HttpStatus.CREATED)
-    //@Secured({"ROLE_ADMIN"})
     public Paciente salvar(@RequestBody @Valid PacienteDTO pacienteDTO){
 
         log.info("Entrando no metódo salvar paciente pelo codigo {}", pacienteDTO.getCpf());
@@ -49,10 +48,8 @@ public class PacienteController {
         return pacienteService.salvar(paciente);
     }
 
-
-    @DeleteMapping(path = "/deletar/{id}")
+    @DeleteMapping(path = "/admin/{id}")
     @Operation(summary="Deletar um paciente")
-    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Object> deletar(@PathVariable String id){
 
         log.info("Entrando no metódo deletar paciente pelo codigo");
@@ -68,7 +65,8 @@ public class PacienteController {
         return  ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/atualizar/{id}")
+    @PutMapping(path = "/admin/{id}")
+    //@PutMapping(path = "/atualizar/{id}")
     @Operation(summary="Atualizar um paciente")
     //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Paciente> atualizar(@PathVariable String id, @RequestBody PacienteDTO pacienteDTO){
@@ -126,8 +124,5 @@ public class PacienteController {
 
         return ResponseEntity.ok().body(paciente);
 
-
-
     }
-
 }

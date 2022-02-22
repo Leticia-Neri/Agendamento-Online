@@ -22,4 +22,6 @@ public interface AgendamentoService {
     AgendamentoDTO convertAgendamento(Agendamento agendamento);
 
     Agendamento converAgendamentoDTO(AgendamentoDTO agendamentoDTO);
+
+    List<Agendamento> findByEspecialidade(String text);
 }

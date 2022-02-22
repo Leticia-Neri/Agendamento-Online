@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.dto.PacienteDTO;
 import com.example.demo.exceptionHandler.ApiRequestException;
+import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
+import com.example.demo.repository.EnderecoRepository;
 import com.example.demo.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,17 @@ public class PacienteServiceImpl implements PacienteService{
     @Autowired
     PacienteRepository pacienteRepository;
 
+    //acresentei
+    @Autowired
+    EnderecoRepository enderecoRepository;
+
     @Override
     public Paciente salvar(Paciente paciente) {
+
+        Endereco endereco = this.enderecoRepository.findById(paciente.getEndereco().getCodigo())
+                .orElseThrow(()-> new IllegalArgumentException("Endereço inexistente"));
+
+        paciente.setEndereco(endereco);
 
         Optional<Paciente> pacienteCpf = pacienteRepository.findByCpf(paciente.getCpf());
         if(pacienteCpf.isPresent()){

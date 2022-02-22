@@ -4,6 +4,7 @@ import com.example.demo.models.Endereco;
 import com.example.demo.models.Paciente;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -23,6 +24,7 @@ public class PacienteDTO {
     @NotEmpty(message = "O campo sexo não pode ser nulo")
     @Schema(description = "Sexo do paciente", example = "Feminino")
     private String sexo;
+    @DBRef
     @Schema(description = "Endereço do paciente")
     private Endereco endereco;
    // @CPF(message = "cpf iválido")

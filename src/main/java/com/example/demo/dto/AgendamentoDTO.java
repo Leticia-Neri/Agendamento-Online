@@ -10,6 +10,7 @@ public class AgendamentoDTO {
 
 
     @NotEmpty(message = "O campo especialidade não pode ser nulo")
+    @Pattern(regexp = "^[A-Za-z ]+$", message = "O campo deve conter apenas letras")
     private String especialidade;
     @Pattern(regexp = "^[0-9/]+$", message = "Data de nascimento deve conter apenas números")
     private String data;

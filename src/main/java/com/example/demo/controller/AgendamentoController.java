@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.controller.util.URL;
 import com.example.demo.dto.AgendamentoDTO;
-import com.example.demo.exceptionHandler.ApiRequestException;
 import com.example.demo.models.Agendamento;
-import com.example.demo.models.Endereco;
-import com.example.demo.models.Paciente;
 import com.example.demo.repository.AgendamentoRepository;
 import com.example.demo.service.AgendamentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,12 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/agendamentos")
@@ -33,10 +32,9 @@ public class AgendamentoController {
 
     private static final Logger log = LoggerFactory.getLogger(AgendamentoController.class);
 
-    @PostMapping("/salvarAgendamento")
+    @PostMapping("/admin/salvarAgendamento")
     @Operation(summary="Salva um agendamento")
     @ResponseStatus(HttpStatus.CREATED)
-    //@Secured({"ROLE_ADMIN"})
     public Agendamento salvar(@RequestBody @Valid AgendamentoDTO agendamentoDTO){
 
         log.info("Entrando no método salvar agendamento");
@@ -49,9 +47,8 @@ public class AgendamentoController {
         return agendamento;
     }
 
-    @DeleteMapping(path = "/deletar/{id}")
+    @DeleteMapping(path = "admin/{id}")
     @Operation(summary="Deleta um agendamento")
-    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Void> deletar(@PathVariable String id){
 
         log.info("Entrando no método deletar agendamento \r\n Verificando se agendamento de id : {} existe no banco de dados", id);
@@ -67,9 +64,8 @@ public class AgendamentoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/atualizar/{id}")
+    @PutMapping(path = "/admin/{id}")
     @Operation(summary="Atualiza um agendamento")
-    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Agendamento> atualizar(@PathVariable String id, @RequestBody AgendamentoDTO agendamentoDTO){
 
         log.info("Entrando no método deatualizar agendamento");
@@ -114,5 +110,12 @@ public class AgendamentoController {
 
         log.info("Retornando todos agendamentos e status ok");
         return ResponseEntity.ok().body(agendamentoService.obterTodos());
+    }
+
+    @GetMapping("/especialidadePesquisa")
+    public ResponseEntity<List<Agendamento>> findByEspecialidade(@RequestParam(value = "text", defaultValue = "") String text ){
+        text = URL.decodeParam(text);
+        List<Agendamento> list = agendamentoService.findByEspecialidade(text);
+        return ResponseEntity.ok().body(list);
     }
 }

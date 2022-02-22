@@ -75,4 +75,9 @@ public class AgendamentoServiceImpl implements AgendamentoService{
 
         return agendamento;
     }
+
+    @Override
+    public List<Agendamento> findByEspecialidade(String text) {
+        return agendamentoRepository.findByEspecialidade(text);
+    }
 }
